@@ -161,8 +161,6 @@ original image (default `None`)
 (default 0.75)
 * `--token [TOKEN]`: specify a Huggingface user access token at the command line
 instead of reading it from a file (default is a file)
-* `--xformers-memory-efficient-attention`: use less memory but require the
-xformers library (default is that xformers is not required)
 
 Some of the original `txt2img.py` options [have been renamed](https://github.com/fboulnois/stable-diffusion-docker/issues/49)
 for easy-of-use and compatibility with other pipelines:
