@@ -118,9 +118,6 @@ def stable_diffusion_pipeline(p):
     if p.attention_slicing:
         pipeline.enable_attention_slicing()
 
-    if p.xformers_memory_efficient_attention:
-        pipeline.enable_xformers_memory_efficient_attention()
-
     p.pipeline = pipeline
 
     print("loaded models after:", iso_date_time(), flush=True)
@@ -251,11 +248,6 @@ def main():
     )
     parser.add_argument(
         "--width", type=int, nargs="?", default=512, help="Image width in pixels"
-    )
-    parser.add_argument(
-        "--xformers-memory-efficient-attention",
-        action="store_true",
-        help="Use less memory but require the xformers library",
     )
     parser.add_argument(
         "prompt0",

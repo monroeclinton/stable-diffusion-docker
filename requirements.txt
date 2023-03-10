@@ -3,4 +3,3 @@ onnxruntime==1.14.0
 safetensors==0.2.8
 torch==1.13.1+cu117
 transformers==4.26.1
-xformers==0.0.16
