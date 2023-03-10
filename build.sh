@@ -4,17 +4,6 @@ set -eu
 
 CWD=$(basename "$PWD")
 
-set_gpu_arg() {
-    while [ "$#" -gt 0 ]; do
-        if [ "$1" = "--device" ] && [ "$2" = "cpu" ]; then
-            GPU_ARG=""
-            return
-        fi
-        shift
-    done
-    GPU_ARG="--gpus=all"
-}
-
 build() {
     docker build . --tag "$CWD"
 }
@@ -38,8 +27,14 @@ pull() {
 }
 
 run() {
-    set_gpu_arg "$@"
-    docker run --rm ${GPU_ARG} \
+    docker run --rm \
+        --group-add=video \
+        --ipc=host \
+        --cap-add=SYS_PTRACE \
+        --security-opt seccomp=unconfined \
+        --device=/dev/kfd \
+        --device=/dev/dri \
+        -e HSA_OVERRIDE_GFX_VERSION=10.3.0 \
         -v huggingface:/home/huggingface/.cache/huggingface \
         -v "$PWD"/input:/home/huggingface/input \
         -v "$PWD"/output:/home/huggingface/output \
